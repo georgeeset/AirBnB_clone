@@ -30,7 +30,10 @@ class TestBaseModel(unittest.TestCase):
         '''
         with self.assertRaises(TypeError) as e:
             self.md1 = BaseModel.__init__()
-        msg = "BaseModel.__init__() missing 1 required positional argument: 'self'"
+        msg = (
+            "BaseModel.__init__()"
+            " missing 1 required positional argument: 'self'"
+        )
         self.assertEqual(str(e.exception), msg)
 
     def test_is_instance(self):
@@ -47,7 +50,13 @@ class TestBaseModel(unittest.TestCase):
         '''
         tests if it returns the right string
         '''
-        self.assertEqual(self.md1.__str__(), "[{}] ({}) {}".format(self.md1.__class__.__name__, self.md1.id, self.md1.__dict__))
+        self.assertEqual(
+            self.md1.__str__(),
+            "[{}] ({}) {}".format(
+                self.md1.__class__.__name__,
+                self.md1.id, self.md1.__dict__
+            )
+        )
 
     def test_save(self):
         '''
@@ -69,5 +78,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(todict['created_at'].__class__.__name__, str)
         self.assertIsInstance(todict['updated_at'].__class__.__name__, str)
 
+
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()
