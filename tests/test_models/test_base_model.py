@@ -38,8 +38,8 @@ class TestBaseModel(unittest.TestCase):
         '''
         tests if it returns the right string
         '''
-        self.assertEqual(str(self.md1), "[{}] ({}) {}".format((self.__class__.__name__),
-                                             self.id, self.__dict__))
+        self.assertEqual(str(self.md1), "[{}] ({}) {}".format(
+                        (self.__class__.__name__), self.id, self.__dict__))
 
     def test_save(self):
         '''
@@ -61,5 +61,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(todict['created_at'].__class__.__name__, str)
         self.assertIsInstance(todict['updated_at'].__class__.__name__, str)
 
+
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()
