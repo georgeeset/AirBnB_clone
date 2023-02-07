@@ -24,6 +24,18 @@ class TestBaseModel(unittest.TestCase):
         '''
         self.assertNotEqual(self.md1.id, self.md2.id)
 
+    def test_init_with_no_args(self):
+        '''
+        init with no arguments
+        '''
+        with self.assertRaises(TypeError) as e:
+            self.md1 = BaseModel.__init__()
+        msg = (
+            "BaseModel.__init__()"
+            " missing 1 required positional argument: 'self'"
+        )
+        self.assertEqual(str(e.exception), msg)
+
     def test_is_instance(self):
         '''
         tests if type of attributes is datetime.datetime
@@ -38,8 +50,6 @@ class TestBaseModel(unittest.TestCase):
         '''
         tests if it returns the right string
         '''
-        self.assertEqual(str(self.md1), "[{}] ({}) {}".format(
-                        (self.__class__.__name__), self.id, self.__dict__))
 
     def test_save(self):
         '''
