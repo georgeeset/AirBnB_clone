@@ -3,6 +3,7 @@
 class for storing instances in a file
 '''
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -46,12 +47,16 @@ class FileStorage:
         '''
         deserializes the JSON file to __objects (only if
         the JSON file (__file_path) exists ; otherwise, do nothing
+        in the for loop:
+        "obj" is a dict, __class__ contains the class name but it's a str,
+        it can't be used as a str so I used eval to strip the str off
         '''
         try:
             with open(self.__file_path, "r", encoding="utf-8") as f:
-                try:
-                    self.__objects = json.load(f)
-                except Exception:
-                    self.__objects = {}
+                json_dict = json.load(f)
+                for obj in json_dict.values():
+                    clas = obj["__class__"]
+                    new_obj = eval("{}({})".format(clas, "**obj"))
+                    self.new(new_obj)
         except FileNotFoundError:
             pass
