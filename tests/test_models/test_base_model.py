@@ -50,6 +50,13 @@ class TestBaseModel(unittest.TestCase):
         '''
         tests if it returns the right string
         '''
+        self.assertEqual(
+            self.md1.__str__(),
+            "[{}] ({}) {}".format(
+                self.md1.__class__.__name__,
+                self.md1.id, self.md1.__dict__
+            )
+        )
 
     def test_save(self):
         '''
