@@ -3,7 +3,7 @@
 class for storing instances in a file
 '''
 import json
-from models.base_model import BaseModel
+
 
 
 class FileStorage:
@@ -51,6 +51,7 @@ class FileStorage:
         "obj" is a dict, __class__ contains the class name but it's a str,
         it can't be used as a str so I used eval to strip the str off
         '''
+        from models.base_model import BaseModel
         try:
             with open(self.__file_path, "r", encoding="utf-8") as f:
                 json_dict = json.load(f)
