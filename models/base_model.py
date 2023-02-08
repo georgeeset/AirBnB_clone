@@ -4,7 +4,7 @@ Base class that defines all common attributes/methods for other classes
 '''
 import uuid
 from datetime import datetime
-from models.__init__ import storage
+import models
 
 
 class BaseModel:
@@ -30,7 +30,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         return "[{}] ({}) {}".format((self.__class__.__name__),
@@ -41,7 +41,7 @@ class BaseModel:
         updates the public instance attributes
         '''
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         '''
