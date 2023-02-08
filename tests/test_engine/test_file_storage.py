@@ -2,7 +2,6 @@
 """
 test m;odule for FileStorage class
 """
-
 import unittest
 from datetime import datetime
 import time
@@ -11,7 +10,6 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import os
 import json
-
 
 
 class TestFileStorage(unittest.TestCase):
@@ -51,7 +49,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(storage.all(), {})
         test_class = BaseModel()
         storage.new(test_class)
-        key="{}.{}".format(type(test_class).__name__, test_class.id)
+        key = "{}.{}".format(type(test_class).__name__, test_class.id)
         self.assertTrue(key in storage.all())
         self.assertEqual(storage.all()[key], test_class)
 
@@ -59,7 +57,8 @@ class TestFileStorage(unittest.TestCase):
         """test all method without arguments"""
         with self.assertRaises(TypeError) as e:
             FileStorage.all()
-        msg = "FileStorage.all() missing 1 required positional argument: 'self'"
+        msg = ("FileStorage.all() missing 1 required "
+        "positional argument: 'self'")
         self.assertEqual(str(e.exception), msg)
 
     def test_new_1(self):
