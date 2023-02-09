@@ -4,7 +4,9 @@ series of tests for basemodel class and methods within
 '''
 import unittest
 import datetime
+import os
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -17,6 +19,15 @@ class TestBaseModel(unittest.TestCase):
         '''
         self.md1 = BaseModel()
         self.md2 = BaseModel()
+
+    def tearDown(self):
+        '''
+        Tear down pocedure
+        Remove saved files after test
+        '''
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     def test_uuid(self):
         '''

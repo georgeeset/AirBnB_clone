@@ -58,7 +58,7 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(TypeError) as e:
             FileStorage.all()
         msg = ("FileStorage.all() missing 1 required "
-        "positional argument: 'self'")
+               "positional argument: 'self'")
         self.assertEqual(str(e.exception), msg)
 
     def test_new_1(self):
