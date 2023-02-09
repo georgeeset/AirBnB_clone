@@ -11,7 +11,8 @@ class HBNBCommand(cmd.Cmd):
     '''
     command interpreter for AirBnB project with commands to be used
     '''
-    classes = ["BaseModel"]
+    classes = ["BaseModel", "User", "State", "City", "Amenity", "Place",
+               "Review"]
 
     prompt = "(hbnb)"
 
@@ -108,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
             return
         elif len(line_list) > 0:
             print([str(v).replace('\\', '') for v in storage.all().values()
-                if type(v).__name__ == line_list[0]])
+                  if type(v).__name__ == line_list[0]])
 
     def do_update(self, line):
         '''
@@ -137,13 +138,13 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
         try:
-        # strip off str ndcheck if int
+            # strip off str ndcheck if int
             if isinstance(eval(line_list[3]), int):
                 line_list[3] = int(line_list[3])
             elif isinstance(eval(line_list[3]), float):  # or if float
                 line_list[3] = float(line_list[3])
             elif isinstance(eval(line_list[3]), str):  # or if float
-                                line_list[3] = line_list[3].replace('"', '')
+                line_list[3] = line_list[3].replace('"', '')
         except NameError:
             line_list[3] = line_list[3]
         setattr(storage.all()[f"{line_list[0]}.{line_list[1]}"],
