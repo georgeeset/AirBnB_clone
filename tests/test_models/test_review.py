@@ -11,7 +11,7 @@ class TestState(unittest.TestCase):
 
     def setUp(self):
         """setup test"""
-        self.sample =Review()
+        self.sample = Review()
 
     def tearDown(self):
         """tear down """
