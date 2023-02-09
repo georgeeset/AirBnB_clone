@@ -52,5 +52,6 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(self.sample.longitude == 0.0)
         self.assertTrue(self.sample.amenity_ids == [])
 
+
 if __name__ == "__main__":
-        unittest.main()
+    unittest.main()

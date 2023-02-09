@@ -5,7 +5,6 @@ class for storing instances in a file
 import json
 
 
-
 class FileStorage:
     '''
     serializes instances to a JSON file
