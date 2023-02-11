@@ -2,9 +2,16 @@
 '''
 the entry point of the command interpreter
 '''
+import re
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -31,6 +38,24 @@ class HBNBCommand(cmd.Cmd):
         '''
         pass
 
+    def precmd(self, line):
+        '''
+        reorganises the input line - swapping command name and classname
+        so that it can handle commands of this nature
+        User.count() - reorganised to "count User"
+        User.show("246c227a-d5c1-403d-9bc7-6a47bb9f0f68")
+        '''
+        newline = ""
+        if line:
+            pattern = re.compile(r"^[a-zA-Z]+\.[a-z]+\(.*\)")
+            if pattern.search(line):
+                newline = line.replace(".", " ").replace("(", " ").\
+                            replace(")", "").replace("\"", "").replace(",", "")
+                newestline = newline.split()
+                newestline[0], newestline[1] = newestline[1], newestline[0]
+                return (" ".join(newestline))
+        return line
+
     def do_create(self, line):
         '''
         Creates a new instance of BaseModel,
@@ -45,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         if line_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        newinst = BaseModel()
+        newinst = eval("{}()".format(line))
         newinst.save()
         print(newinst.id)
 
@@ -150,6 +175,23 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage.all()[f"{line_list[0]}.{line_list[1]}"],
                 line_list[2], line_list[3])
         storage.save()
+
+    def do_count(self, line):
+
+        line_list = line.split()
+        number = 0
+        if len(line_list) == 0:  # if no arg is passed to count command
+            print(len(storage.all()))
+            return
+        elif line_list[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+        else:
+            for v in storage.all().keys():
+                if v.startswith(line_list[0]):
+                    number += 1
+            print(number)
+            return
 
 
 if __name__ == '__main__':
