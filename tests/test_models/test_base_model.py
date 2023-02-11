@@ -42,7 +42,7 @@ class TestBaseModel(unittest.TestCase):
         with self.assertRaises(TypeError) as e:
             self.md1 = BaseModel.__init__()
         msg = (
-            "BaseModel.__init__()"
+            "__init__()"
             " missing 1 required positional argument: 'self'"
         )
         self.assertEqual(str(e.exception), msg)
