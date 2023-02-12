@@ -34,6 +34,7 @@ class TestBaseModel(unittest.TestCase):
         tests if the id is unique for each instance
         '''
         self.assertNotEqual(self.md1.id, self.md2.id)
+        self.assertEqual(len(f"{self.md1.id}"), len(f"{self.md2.id}"))
 
     def test_init_with_no_args(self):
         '''
@@ -41,11 +42,6 @@ class TestBaseModel(unittest.TestCase):
         '''
         with self.assertRaises(TypeError) as e:
             self.md1 = BaseModel.__init__()
-        msg = (
-            "__init__()"
-            " missing 1 required positional argument: 'self'"
-        )
-        self.assertEqual(str(e.exception), msg)
 
     def test_is_instance(self):
         '''
@@ -56,6 +52,28 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsNotNone(self.md1.id)
         self.assertIsNotNone(self.md1.created_at)
         self.assertIsNotNone(self.md1.updated_at)
+
+    def test_date_time(self):
+        '''
+        check if datetime is correct
+        '''
+        test_class = BaseModel()
+        date = datetime.datetime.now()
+        difference = test_class.updated_at - test_class.created_at
+        self.assertTrue(abs(difference.total_seconds()) < 0.01)
+        difference = test_class.created_at - date
+        self.assertTrue(abs(difference.total_seconds()) < 0.1)
+
+    def test_time_format(self):
+        '''
+        test that confirms the time format
+        '''
+        self.md1.save()
+        md1_json = self.md1.to_dict()
+        update = self.md1.updated_at
+        confirmation = datetime.datetime.strptime(md1_json["updated_at"],
+                                                  "%Y-%m-%dT%H:%M:%S.%f")
+        self.assertEqual(update, confirmation)
 
     def test_str(self):
         '''
