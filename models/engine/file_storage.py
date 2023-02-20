@@ -63,7 +63,7 @@ class FileStorage:
                 json_dict = json.load(f)
                 for obj in json_dict.values():
                     clas = obj["__class__"]
-                    new_obj = eval("{}({})".format(clas, "**obj"))
+                    new_obj = eval("{}({})",{clas, obj})
                     self.new(new_obj)
         except FileNotFoundError:
             pass

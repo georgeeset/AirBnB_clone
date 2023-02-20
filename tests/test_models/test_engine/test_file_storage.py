@@ -93,6 +93,11 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(storage.all(), {})
         self.prepare_all_test(Place())
 
+    def test_all_with_no_args(self):
+        """test all method without arguments"""
+        with self.assertRaises(TypeError) as e:
+            FileStorage.all()
+
     def prepare_new_test(self, test_class):
         """ Prepare class proparty for all models"""
         cls = test_class
