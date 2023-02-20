@@ -60,7 +60,7 @@ ul.popover {
     position: absolute;
     z-index: 1;
     padding-bottom: 20px;
-    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 ul.popover ul li h2 {
