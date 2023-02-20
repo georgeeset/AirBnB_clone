@@ -1,0 +1,14 @@
+footer {
+    background-color: white;
+    width: 100%;
+    /*always at the bottom of the page*/
+    position: fixed;
+    text-align: center;
+    line-height: 60px;
+    bottom: 0;
+    border-top: 1px #CCCCCC solid;
+}
+
+span{
+    vertical-align: middle;
+}
